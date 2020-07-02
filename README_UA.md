@@ -1,6 +1,6 @@
 # Binary Studio Academy 2020
 
-## Домашнє завдання #5 ([ru](README.md))
+## Домашнє завдання #4 ([ru](README.md))
 
 ### Вимоги
 
