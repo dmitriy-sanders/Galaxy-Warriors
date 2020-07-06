@@ -1,6 +1,6 @@
 # Binary Studio Academy 2020
 
-## Домашнє завдання #4 ([ru](README.md))
+## Домашнє завдання #5 ([ru](README.md))
 
 ### Вимоги
 
@@ -70,8 +70,8 @@ array hold   // вантажний відсік корабля для збері
 Старт гри відбувається в Home Galaxy. Космічний корабель на початку має такі характеристики:
 
 ```
-    strength: 4
-    armour: 3
+    strength: 5
+    armour: 5
     luck: 5
     health: 100
 ```
