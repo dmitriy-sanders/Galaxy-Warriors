@@ -37,18 +37,14 @@ final class GameTest extends TestCase
                     ],
                     [
                         'stats', Messages::stats([
-                            'strength' => 4,
-                            'armour' => 3,
+                            'strength' => 5,
+                            'armor' => 5,
                             'luck' => 5,
                             'health' => 100,
                             'hold' => '[ _ _ _ ]'
                         ])
                     ]
                 ]
-            ],
-
-            'win commands' => [
-                $this->getWinCommands()
             ],
 
             'walk through map' => [
@@ -110,7 +106,7 @@ final class GameTest extends TestCase
                         'attack', Messages::errors('home_galaxy_attack')
                     ],
                     [
-                        'set-galaxy spiral', Messages::galaxy('xeno')
+                        'set-galaxy spiral', Messages::galaxy('spiral')
                     ],
                     [
                         'grab', Messages::errors('grab_undestroyed_spaceship')
@@ -121,7 +117,7 @@ final class GameTest extends TestCase
                 ]
             ],
 
-            'loose battle' => [
+            'battle imitation' => [
                 [
                     [
                         'set-galaxy andromeda', Messages::galaxy('andromeda')
@@ -129,25 +125,43 @@ final class GameTest extends TestCase
                     [
                         'attack', Messages::attack(
                             'Patrol Spaceship',
-                            10, 40, 10, 50
+                            13, 87, 8, 92
                         )
                     ],
                     [
                         'attack', Messages::attack(
                             'Patrol Spaceship',
-                            10, 30, 10, 40
+                            13, 74, 8, 84
                         )
                     ],
                     [
                         'attack', Messages::attack(
                             'Patrol Spaceship',
-                            10, 20, 10, 30
+                            13, 61, 8, 76
                         )
                     ],
                     [
                         'attack', Messages::attack(
                             'Patrol Spaceship',
-                            10, 10, 10, 20
+                            13, 48, 8, 68
+                        )
+                    ],
+                    [
+                        'attack', Messages::attack(
+                            'Patrol Spaceship',
+                            13, 35, 8, 60
+                        )
+                    ],
+                    [
+                        'attack', Messages::attack(
+                            'Patrol Spaceship',
+                            13, 22, 8, 52
+                        )
+                    ],
+                    [
+                        'attack', Messages::attack(
+                            'Patrol Spaceship',
+                            13, 9, 8, 44
                         )
                     ],
                     [
@@ -160,6 +174,18 @@ final class GameTest extends TestCase
                         'set-galaxy isop', Messages::galaxy('isop')
                     ],
                     [
+                        'attack', Messages::attack(
+                            'Executor',
+                            5, 95, 20, 24
+                        )
+                    ],
+                    [
+                        'attack', Messages::attack(
+                            'Executor',
+                            5, 90, 20, 4
+                        )
+                    ],
+                    [
                         'attack', Messages::die()
                     ],
                     [
@@ -167,331 +193,16 @@ final class GameTest extends TestCase
                     ],
                     [
                         'stats', Messages::stats([
-                            'strength' => 4,
-                            'armour' => 3,
+                            'strength' => 5,
+                            'armor' => 5,
                             'luck' => 5,
                             'health' => 100,
                             'hold' => '[ _ _ _ ]'
                         ])
-                    ],
+                    ]
                 ]
             ]
         ];
     }
 
-    private function getWinCommands()
-    {
-        $firstBattle = [
-            [
-                'set-galaxy pegasus', Messages::galaxy('pegasus')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    10, 40, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    10, 30, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    10, 20, 10, 30
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    10, 10, 10, 20
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-        ];
-
-        $secondBattle = [
-            [
-                'set-galaxy spiral', Messages::galaxy('spiral')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    13, 37, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    13, 24, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    13, 11, 10, 30
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-            [
-                'set-galaxy home', Messages::homeGalaxy()
-            ],
-            [
-                'buy strength', Messages::buySkill('strength', 6)
-            ],
-        ];
-
-        $thirdBattle = [
-            [
-                'set-galaxy andromeda', Messages::galaxy('andromeda')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    15, 35, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    15, 20, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    15, 5, 10, 30
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-            [
-                'set-galaxy home', Messages::homeGalaxy()
-            ],
-            [
-                'buy strength', Messages::buySkill('strength', 7)
-            ],
-        ];
-
-        $fourthBattle = [
-            [
-                'set-galaxy spiral', Messages::galaxy('spiral')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    18, 32, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    18, 14, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-            [
-                'set-galaxy south', Messages::homeGalaxy()
-            ],
-            [
-                'buy strength', Messages::buySkill('strength', 8)
-            ],
-        ];
-
-        $fifthBattle = [
-            [
-                'set-galaxy pegasus', Messages::galaxy('pegasus')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    20, 30, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    20, 10, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-        ];
-
-        $sixthBattle = [
-            [
-                'set-galaxy andromeda', Messages::galaxy('andromeda')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    20, 30, 10, 30
-                )
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    20, 10, 10, 20
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-            [
-                'set-galaxy east', Messages::homeGalaxy()
-            ],
-            [
-                'buy strength', Messages::buySkill('strength', 9)
-            ],
-            [
-                'buy strength', Messages::buySkill('strength', 10)
-            ],
-        ];
-
-        $seventhBattle = [
-            [
-                'set-galaxy spiral', Messages::galaxy('spiral')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    25, 25, 10, 50
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-
-            [
-                'set-galaxy pegasus', Messages::galaxy('pegasus')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    25, 25, 10, 40
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-
-            [
-                'set-galaxy spiral', Messages::galaxy('spiral')
-            ],
-            [
-                'attack', Messages::attack(
-                    'Patrol Spaceship',
-                    25, 25, 10, 30
-                )
-            ],
-            [
-                'attack', Messages::destroyed('Patrol Spaceship')
-            ],
-            [
-                'grab', Messages::grabPatrolSpaceship()
-            ],
-            [
-                'set-galaxy home', Messages::homeGalaxy()
-            ],
-            [
-                'stats', Messages::stats([
-                    'strength' => 10,
-                    'armour' => 4,
-                    'luck' => 4,
-                    'health' => 60,
-                    'hold' => '[ 🔮 🔮 🔮 ]'
-                ])
-            ],
-            [
-                'buy armour', Messages::buySkill('armour', 5)
-            ],
-            [
-                'buy armour', Messages::buySkill('armour', 6)
-            ],
-            [
-                'buy armour', Messages::buySkill('armour', 7)
-            ],
-        ];
-
-        return array_merge(
-            [
-                [
-                    'stats', Messages::stats([
-                        'strength' => 4,
-                        'armour' => 4,
-                        'luck' => 4,
-                        'health' => 60,
-                        'hold' => '[ _ _ _ ]'
-                    ])
-                ],
-            ],
-            $firstBattle,
-            [
-                [
-                    'stats', Messages::stats([
-                        'strength' => 4,
-                        'armour' => 4,
-                        'luck' => 4,
-                        'health' => 20,
-                        'hold' => '[ 🔮 _ _ ]'
-                    ])
-                ],
-                [
-                    'set-galaxy north', Messages::homeGalaxy()
-                ],
-                [
-                    'buy strength', Messages::buySkill('strength', 5)
-                ],
-                [
-                    'stats', Messages::stats([
-                        'strength' => 5,
-                        'armour' => 4,
-                        'luck' => 4,
-                        'health' => 60,
-                        'hold' => '[ _ _ _ ]'
-                    ])
-                ]
-            ],
-            $secondBattle,
-            $thirdBattle,
-            $fourthBattle,
-            $fifthBattle,
-            $sixthBattle,
-            $seventhBattle
-        );
-    }
 }

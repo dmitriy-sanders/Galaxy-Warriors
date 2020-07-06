@@ -9,7 +9,7 @@ final class Messages
             'name' => 'Patrol Spaceship',
             'stats' => [
                 'strength' => 4,
-                'armour' => 3,
+                'armor' => 4,
                 'luck' => 2,
                 'health' => 100,
             ]
@@ -18,7 +18,7 @@ final class Messages
             'name' => 'Battle Spaceship',
             'stats' => [
                 'strength' => 8,
-                'armour' => 7,
+                'armor' => 7,
                 'luck' => 6,
                 'health' => 100,
             ]
@@ -27,7 +27,7 @@ final class Messages
             'name' => 'Executor',
             'stats' => [
                 'strength' => 10,
-                'armour' => 10,
+                'armor' => 10,
                 'luck' => 10,
                 'health' => 100,
             ]
@@ -68,8 +68,8 @@ final class Messages
     public static function stats(array $data): string
     {
         return 'Spaceship stats:' . PHP_EOL
-        . 'strength: ' . ($data['strength'] ?: 4) . PHP_EOL
-        . 'armour: ' . ($data['armour'] ?: 3) . PHP_EOL
+        . 'strength: ' . ($data['strength'] ?: 5) . PHP_EOL
+        . 'armor: ' . ($data['armor'] ?: 5) . PHP_EOL
         . 'luck: ' . ($data['luck'] ?: 5)  . PHP_EOL
         . 'health: ' . ($data['health'] ?: 100)   . PHP_EOL
         . 'hold: ' . ($data['hold'] ?: '[ _ _ _ ]') . PHP_EOL;
@@ -80,10 +80,10 @@ final class Messages
         $galaxy = self::GALAXIES[$galaxyLabel];
         $spaceship = self::SPACESHIPS[$galaxy['spaceship']];
 
-        return "Galaxy {$galaxyLabel}: {$galaxy['galaxy']}." . PHP_EOL
-            . "You see {$spaceship['name']}: " . PHP_EOL
+        return "Galaxy: {$galaxy['galaxy']}." . PHP_EOL
+            . "You see a {$spaceship['name']}: " . PHP_EOL
             . 'strength: ' . $spaceship['stats']['strength'] . PHP_EOL
-            . 'armour: ' . $spaceship['stats']['armour'] . PHP_EOL
+            . 'armor: ' . $spaceship['stats']['armor'] . PHP_EOL
             . 'luck: ' . $spaceship['stats']['luck']  . PHP_EOL
             . 'health: ' . $spaceship['stats']['health']   . PHP_EOL;
     }
@@ -118,7 +118,7 @@ final class Messages
 
     public static function homeGalaxy(): string
     {
-        return 'Home Galaxy.' . PHP_EOL;
+        return 'Galaxy: Home Galaxy.' . PHP_EOL;
     }
 
     public static function buySkill(string $skill, int $nextValue): string
@@ -157,7 +157,7 @@ final class Messages
             . 'set-galaxy <home|andromeda|spiral|pegasus|shiar|xeno|isop> - provides jump into specified galaxy' . PHP_EOL
             . 'attack - attacks enemy\'s spaceship' . PHP_EOL
             . 'grab - grab useful load from the spaceship' . PHP_EOL
-            . 'buy <strength|armour|reactor> - buys skill or reactor (1 item)' . PHP_EOL
+            . 'buy <strength|armor|reactor> - buys skill or reactor (1 item)' . PHP_EOL
             . 'apply-reactor - apply magnet reactor to increase spaceship health level on 20 points' . PHP_EOL
             . 'whereami - shows current galaxy' . PHP_EOL
             . 'restart - restarts game' . PHP_EOL
