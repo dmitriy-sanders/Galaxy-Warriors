@@ -2,33 +2,44 @@
 
 namespace BinaryStudioAcademy\Game;
 
+use BinaryStudioAcademy\Game\Commands\CommandValidator;
 use BinaryStudioAcademy\Game\Contracts\Io\Reader;
 use BinaryStudioAcademy\Game\Contracts\Io\Writer;
 use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
 class Game
 {
-    private $random;
+    private Random $random;
+    private CommandValidator $validator;
 
     public function __construct(Random $random)
     {
         $this->random = $random;
+        $this->validator = new CommandValidator();
     }
 
     public function start(Reader $reader, Writer $writer)
     {
-        $writer->writeln('Your goal is to develop a game "Galaxy Warriors".');
-        $writer->writeln('This method starts infinite loop with game logic.');
-        $writer->writeln('Use proposed implementation in order to tests work correct.');
-        $writer->writeln('Random float number: ' . $this->random->get());
-        $writer->writeln('Feel free to remove this lines and write yours instead.');
-        $writer->writeln('Press enter to start... ');
+        $writer->writeln("Welcome to the best console game - 'Galaxy Warriors'");
         $input = trim($reader->read());
-        $writer->writeln('Adventure has begun. Wish you good luck!');
+
+        while ($input !== 'exit') {
+            $this->checkAndExecute($input);
+
+            $input = trim($reader->read());
+        }
     }
 
     public function run(Reader $reader, Writer $writer)
     {
         $writer->writeln('This method runs program step by step.');
+    }
+
+    private function checkAndExecute(string $input)
+    {
+        $command = explode(' ', $input)[0];
+        $params = explode(' ', $input)[1] ?? null;
+
+        $this->validator->validate($command, $params);
     }
 }

@@ -27,4 +27,9 @@ class CliWriter implements Writer
     {
         return $this->stream;
     }
+
+    public function divider()
+    {
+        fputs($this->stream, '-----------------------' . PHP_EOL);
+    }
 }
