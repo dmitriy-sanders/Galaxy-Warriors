@@ -2,7 +2,9 @@
 
 namespace BinaryStudioAcademy\Game\Contracts\Command;
 
+use BinaryStudioAcademy\Game\Helpers\Random;
+
 interface IValidator
 {
-    public function validate(string $command, ?string $params);
+    public function validate(string $command, ?string $params, Random $random);
 }

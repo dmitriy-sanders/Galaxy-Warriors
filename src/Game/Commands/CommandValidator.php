@@ -4,52 +4,43 @@ namespace BinaryStudioAcademy\Game\Commands;
 
 use BinaryStudioAcademy\Game\Contracts\Command\IValidator;
 use BinaryStudioAcademy\Game\Helpers\Messages;
+use BinaryStudioAcademy\Game\Helpers\Random;
 use BinaryStudioAcademy\Game\Io\CliWriter;
 
 final class CommandValidator implements IValidator
 {
-    private static $commands = [
+    private static array $commands = [
         'help',
         'stats',
-        'set-galaxy' => [
-            'home',
-            'andromeda',
-            'spiral',
-            'pegasus',
-            'shiar',
-            'xeno',
-            'isop',
-        ],
+        'set-galaxy',
         'attack',
         'grab',
-        'buy' => [
-            'strength',
-            'armor',
-            'reactor',
-        ],
+        'buy',
         'apply-reactor',
         'whereami',
         'restart',
         'exit',
     ];
 
-    public function validate(string $command, ?string $params)
+    public function validate(string $command, ?string $params, Random $random)
     {
         $writer = new CliWriter();
         if (in_array($command, self::$commands)) {
-            $commandClass = __NAMESPACE__ . '\\' .ucfirst($command) . 'Command';
+            $commandClass = $this->getCommandClassName($command);
             if (class_exists($commandClass)) {
-                $commandObj = new $commandClass();
+                $commandObj = new $commandClass($random, $writer);
                 if (method_exists($commandObj, 'execute')) {
-                    if($params) {
-                        $commandObj->execute($command, $params, $writer);
-                    } else {
-                        $commandObj->execute($command, $writer);
-                    }
+                    $commandObj->execute($command, $params);
                 }
             }
         } else {
             $writer->writeln(Messages::errors('unknown_command', $command));
         }
+    }
+    private function getCommandClassName(string $command)
+    {
+        return __NAMESPACE__ . '\\' .
+            implode('', array_map('ucfirst', explode('-', $command)))
+            . 'Command';
     }
 }

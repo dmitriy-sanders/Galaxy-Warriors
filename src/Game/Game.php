@@ -20,7 +20,8 @@ class Game
 
     public function start(Reader $reader, Writer $writer)
     {
-        $writer->writeln("Welcome to the best console game - 'Galaxy Warriors'");
+        $writer->writeln("Welcome to the best console game - 'Galaxy Warriors'!");
+        $writer->writeln("Enter 'help' - to see all available commands!");
         $input = trim($reader->read());
 
         while ($input !== 'exit') {
@@ -40,6 +41,11 @@ class Game
         $command = explode(' ', $input)[0];
         $params = explode(' ', $input)[1] ?? null;
 
-        $this->validator->validate($command, $params);
+        $this->validator->validate($command, $params, $this->random);
+    }
+
+    public function state()
+    {
+
     }
 }

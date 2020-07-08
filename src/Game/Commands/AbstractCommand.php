@@ -2,9 +2,22 @@
 
 namespace BinaryStudioAcademy\Game\Commands;
 
-use BinaryStudioAcademy\Game\Contracts\Command\ICommand;
+use BinaryStudioAcademy\Game\Contracts\Io\Writer;
+use BinaryStudioAcademy\Game\Factories\Spaceships\AbstractSpaceship;
+use BinaryStudioAcademy\Game\Factories\Spaceships\PlayerSpaceship;
+use BinaryStudioAcademy\Game\Helpers\Random;
 
-abstract class AbstractCommand implements ICommand
+abstract class AbstractCommand
 {
-    public function execute(string $command, ?string $params){}
+    protected Random $random;
+    protected Writer $writer;
+    protected PlayerSpaceship $player;
+    protected static ?AbstractSpaceship $diedWarrior = null;
+
+    public function __construct(Random $random, Writer $writer)
+    {
+        $this->random = $random;
+        $this->writer = $writer;
+        $this->player = PlayerSpaceship::getInstance();
+    }
 }

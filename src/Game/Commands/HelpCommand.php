@@ -3,13 +3,11 @@
 namespace BinaryStudioAcademy\Game\Commands;
 
 use BinaryStudioAcademy\Game\Helpers\Messages;
-use BinaryStudioAcademy\Game\Io\CliWriter;
 
-final class HelpCommand
+final class HelpCommand extends AbstractCommand
 {
-    public function execute(string $command, CliWriter $writer)
+    public function execute()
     {
-        $writer->divider();
-        $writer->writeln(Messages::help());
+        $this->writer->writeln(Messages::help());
     }
 }

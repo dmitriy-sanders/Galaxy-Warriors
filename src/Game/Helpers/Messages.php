@@ -2,35 +2,19 @@
 
 namespace BinaryStudioAcademy\Game\Helpers;
 
+use BinaryStudioAcademy\Game\Contracts\Spaceship\ISpaceship;
+
 final class Messages
 {
     const SPACESHIPS = [
         'patrol' => [
             'name' => 'Patrol Spaceship',
-            'stats' => [
-                'strength' => 4,
-                'armor' => 4,
-                'luck' => 2,
-                'health' => 100,
-            ]
         ],
         'battle' => [
             'name' => 'Battle Spaceship',
-            'stats' => [
-                'strength' => 8,
-                'armor' => 7,
-                'luck' => 6,
-                'health' => 100,
-            ]
         ],
         'executor' => [
             'name' => 'Executor',
-            'stats' => [
-                'strength' => 10,
-                'armor' => 10,
-                'luck' => 10,
-                'health' => 100,
-            ]
         ]
     ];
 
@@ -75,17 +59,16 @@ final class Messages
             . 'hold: ' . ($data['hold'] ?: '[ _ _ _ ]') . PHP_EOL;
     }
 
-    public static function galaxy(string $galaxyLabel): string
+    public static function galaxy(string $galaxyLabel, ISpaceship $spaceship): string
     {
         $galaxy = self::GALAXIES[$galaxyLabel];
-        $spaceship = self::SPACESHIPS[$galaxy['spaceship']];
 
         return "Galaxy: {$galaxy['galaxy']}." . PHP_EOL
-            . "You see a {$spaceship['name']}: " . PHP_EOL
-            . 'strength: ' . $spaceship['stats']['strength'] . PHP_EOL
-            . 'armor: ' . $spaceship['stats']['armor'] . PHP_EOL
-            . 'luck: ' . $spaceship['stats']['luck']  . PHP_EOL
-            . 'health: ' . $spaceship['stats']['health']   . PHP_EOL;
+            . "You see a {$spaceship->getName()}: " . PHP_EOL
+            . "strength: {$spaceship->getStrength()}" . PHP_EOL
+            . "armor: {$spaceship->getArmor()}" . PHP_EOL
+            . "luck:  {$spaceship->getLuck()}" . PHP_EOL
+            . "health: {$spaceship->getHealth()}" . PHP_EOL;
     }
 
     public static function attack(
