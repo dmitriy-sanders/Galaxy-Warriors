@@ -3,9 +3,9 @@
 namespace BinaryStudioAcademy\Game\Commands;
 
 use BinaryStudioAcademy\Game\Contracts\Command\IValidator;
+use BinaryStudioAcademy\Game\Contracts\Io\Writer;
 use BinaryStudioAcademy\Game\Helpers\Messages;
 use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
-use BinaryStudioAcademy\Game\Io\CliWriter;
 
 final class CommandValidator implements IValidator
 {
@@ -22,9 +22,8 @@ final class CommandValidator implements IValidator
         'exit',
     ];
 
-    public function validate(string $command, ?string $params, Random $random)
+    public function validate(string $command, ?string $params, Random $random, Writer $writer)
     {
-        $writer = new CliWriter();
         if (in_array($command, self::$commands)) {
             $commandClass = $this->getCommandClassName($command);
             if (class_exists($commandClass)) {

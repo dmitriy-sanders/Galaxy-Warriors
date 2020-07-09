@@ -5,7 +5,7 @@ namespace BinaryStudioAcademy\Game\Commands;
 use BinaryStudioAcademy\Game\Contracts\Io\Writer;
 use BinaryStudioAcademy\Game\Factories\Spaceships\AbstractSpaceship;
 use BinaryStudioAcademy\Game\Factories\Spaceships\PlayerSpaceship;
-use BinaryStudioAcademy\Game\Helpers\Random;
+use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
 abstract class AbstractCommand
 {
@@ -15,7 +15,7 @@ abstract class AbstractCommand
     protected static ?AbstractSpaceship $diedWarrior = null;
     protected static bool $grabbed = false;
 
-    public function __construct($random, Writer $writer)
+    public function __construct(Random $random, Writer $writer)
     {
         $this->random = $random;
         $this->writer = $writer;

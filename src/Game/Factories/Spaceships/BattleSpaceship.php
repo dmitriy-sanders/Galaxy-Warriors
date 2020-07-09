@@ -3,7 +3,7 @@
 namespace BinaryStudioAcademy\Game\Factories\Spaceships;
 
 use BinaryStudioAcademy\Game\Helpers\Hold;
-use BinaryStudioAcademy\Game\Helpers\Random;
+use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 use BinaryStudioAcademy\Game\Helpers\Stats;
 
 final class BattleSpaceship extends AbstractSpaceship
@@ -12,9 +12,9 @@ final class BattleSpaceship extends AbstractSpaceship
 
     public function __construct(Random $random)
     {
-        $this->strength = floor($random->get() * (8 - 5 + 1)) + 5;
-        $this->armor = floor($random->get() * (8 - 6 + 1)) + 6;
-        $this->luck = floor($random->get() * (6 - 3 + 1)) + 3;
+        $this->strength = $random->getRandomInt(5, 8);
+        $this->armor = $random->getRandomInt(6, 8);
+        $this->luck = $random->getRandomInt(3, 6);
         $this->health = Stats::MAX_HEALTH;
         $this->hold = [Hold::REACTOR, Hold::CRYSTAL, ''];
     }

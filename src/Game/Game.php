@@ -25,7 +25,7 @@ class Game
         $input = trim($reader->read());
 
         while (true) {
-            $this->checkAndExecute($input);
+            $this->checkAndExecute($input, $writer);
 
             $input = trim($reader->read());
         }
@@ -34,14 +34,15 @@ class Game
     public function run(Reader $reader, Writer $writer)
     {
         $input = trim($reader->read());
-        $this->checkAndExecute($input);
+
+        $this->checkAndExecute($input, $writer);
     }
 
-    private function checkAndExecute(string $input)
+    private function checkAndExecute(string $input, Writer $writer)
     {
         $command = explode(' ', $input)[0];
         $params = explode(' ', $input)[1] ?? null;
 
-        $this->validator->validate($command, $params, $this->random);
+        $this->validator->validate($command, $params, $this->random, $writer);
     }
 }

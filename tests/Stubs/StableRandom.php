@@ -17,4 +17,9 @@ class StableRandom implements Random
     {
         return $this->probability;
     }
+
+    public function getRandomInt(int $min, int $max)
+    {
+        return floor($this->get() * ($max - $min)) + $min;
+    }
 }

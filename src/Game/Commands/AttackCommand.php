@@ -7,6 +7,9 @@ use BinaryStudioAcademy\Game\Helpers\Messages;
 
 final class AttackCommand extends AbstractCommand
 {
+    /**
+     * If warrior is killed => dead, initialize diedWarrior
+     */
     public function execute()
     {
         $math = new Math();
@@ -37,9 +40,8 @@ final class AttackCommand extends AbstractCommand
                 }
             } else if ($warrior->getHealth() > 0) {
                 $this->player->makeDamage($warriorDamage);
-                if ($this->player->getHealth() <= 0){
-                    $this->writer->writeln('You died:(');
-                    $this->writer->writeln('Game Restarted!');
+                if ($this->player->getHealth() <= 0) {
+                    $this->writer->writeln(Messages::die());
                     $this->player->restart();
                 } else {
                     $this->writer->writeln(Messages::attack(
@@ -50,12 +52,11 @@ final class AttackCommand extends AbstractCommand
                         $this->player->getHealth()
                     ));
                 }
-            } else if(self::$diedWarrior || !self::$diedWarrior && self::$grabbed) {
-                $this->writer->writeln("You have already defeated the warrior!");
-            } else if (self::$grabbed){
-                $this->writer->writeln("You have already grabbed the items!");
+            } else if (self::$diedWarrior || !self::$diedWarrior && self::$grabbed) {
+                $this->writer->writeln(Messages::errors('already_killed'));
+            } else if (self::$grabbed) {
+                $this->writer->writeln(Messages::errors('already_grabbed'));
             }
-
         } else {
             $this->writer->writeln(Messages::errors('home_galaxy_attack'));
         }

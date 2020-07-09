@@ -2,6 +2,7 @@
 
 namespace BinaryStudioAcademy\Game\Commands;
 
+use BinaryStudioAcademy\Game\Helpers\Hold;
 use BinaryStudioAcademy\Game\Helpers\Messages;
 
 final class GrabCommand extends AbstractCommand
@@ -11,17 +12,21 @@ final class GrabCommand extends AbstractCommand
         if (!self::$diedWarrior) {
             if ($this->isHome()) {
                 $this->writer->writeln(Messages::errors('home_galaxy_grab'));
+            } else if (self::$grabbed) {
+                $this->writer->writeln(Messages::errors('already_grabbed'));
             } else {
                 $this->writer->writeln(Messages::errors('grab_undestroyed_spaceship'));
             }
+
         } else {
-            if (($this->player->getHoldWeight() + self::$diedWarrior->getHoldWeight()) <= 3) {
+            if (($this->player->getHoldWeight() + self::$diedWarrior->getHoldWeight()) <= Hold::SIZE) {
                 $this->player->updateHold(self::$diedWarrior->getHold());
                 $this->chooseMessageText(self::$diedWarrior->getName());
+                // change $grabbed to 'true' - means that we grabbed items from dead warrior
                 self::$diedWarrior = null;
                 self::$grabbed = true;
             } else {
-                $this->writer->writeln("Your hold doesn\'t have enough place for new items!");
+                $this->writer->writeln(Messages::errors('full_hold'));
             }
         }
     }

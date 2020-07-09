@@ -16,27 +16,29 @@ final class BuyCommand extends AbstractCommand
 
     public function execute(?string $param)
     {
+        $crystalIndex = $this->getCrystalIndexIfExists();
         if ($this->isHome()) {
             if (!$param || !in_array($param, $this->params)) {
-                $this->writer->writeln('I don\'t know what you want to buy!');
+                $this->writer->writeln(Messages::errors('null_buy'));
             } else {
-                if (is_int($this->isPlayerHavingCrystal())) {
+                if (is_int($crystalIndex)) {
                     $this->buyAction($param);
                 } else {
-                    $this->writer->writeln('You don\'t have enough crystals to buy items!');
+                    $this->writer->writeln(Messages::errors('no_crystals'));
                 }
             }
         } else {
-            $this->writer->writeln('You can buy items only at home!');
+            $this->writer->writeln(Messages::errors('buy_only'));
         }
     }
 
-    private function isPlayerHavingCrystal(): ?int
+    private function getCrystalIndexIfExists(): ?int
     {
         $index = null;
-        for($i = 0; $i < 3; $i++) {
-            if($this->player->getHold()[$i] === Hold::CRYSTAL) {
+        for ($i = 0; $i < Hold::SIZE; $i++) {
+            if ($this->player->getHold()[$i] === Hold::CRYSTAL) {
                 $index = $i;
+                break;
             }
         }
         return $index;
@@ -46,23 +48,23 @@ final class BuyCommand extends AbstractCommand
     {
         switch ($param) {
             case 'strength':
-                if($this->player->getStrength() === Stats::MAX_STRENGTH) {
-                    $this->writer->writeln('You can\'t buy strength, your strength is full!');
+                if ($this->player->getStrength() === Stats::MAX_STRENGTH) {
+                    $this->writer->writeln(Messages::errors('max_strength'));
                 } else {
-                    $this->player->buyStrength($this->isPlayerHavingCrystal());
+                    $this->player->buyStrength($this->getCrystalIndexIfExists());
                     $this->writer->writeln(Messages::buyStrength($this->player->getStrength()));
                 }
                 break;
             case 'armor':
-                if($this->player->getArmor() === Stats::MAX_ARMOUR) {
-                    $this->writer->writeln('You can\'t buy armor, your armor is full!');
+                if ($this->player->getArmor() === Stats::MAX_ARMOUR) {
+                    $this->writer->writeln(Messages::errors('max_armor'));
                 } else {
-                    $this->player->buyArmor($this->isPlayerHavingCrystal());
+                    $this->player->buyArmor($this->getCrystalIndexIfExists());
                     $this->writer->writeln(Messages::buyArmor($this->player->getArmor()));
                 }
                 break;
             case 'reactor':
-                $this->player->buyReactor($this->isPlayerHavingCrystal());
+                $this->player->buyReactor($this->getCrystalIndexIfExists());
                 $this->writer->writeln(Messages::buyReactor($this->player->getReactorsAmount()));
                 break;
         }

@@ -63,9 +63,6 @@ final class PlayerSpaceship extends AbstractSpaceship
     public function buyArmor(int $index)
     {
         $this->armor += 1;
-        if ($this->armor > 10) {
-            $this->armor = 10;
-        }
         $this->deleteCrystal($index);
     }
 
@@ -104,7 +101,7 @@ final class PlayerSpaceship extends AbstractSpaceship
         $newItems = array_filter($newHold);
 
         $this->hold = array_merge($myItems, $newItems);
-        while(count($this->hold) !== 3) {
+        while (count($this->hold) !== Hold::SIZE) {
             $this->hold[] = '';
         }
     }

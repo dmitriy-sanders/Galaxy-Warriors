@@ -6,62 +6,21 @@ use BinaryStudioAcademy\Game\Contracts\Spaceship\ISpaceship;
 
 final class Messages
 {
-    const SPACESHIPS = [
-        'patrol' => [
-            'name' => 'Patrol Spaceship',
-        ],
-        'battle' => [
-            'name' => 'Battle Spaceship',
-        ],
-        'executor' => [
-            'name' => 'Executor',
-        ]
-    ];
 
-    const GALAXIES = [
-        'home' => [
-            'galaxy' => 'Home Galaxy',
-            'spaceship' => 'player'
-        ],
-        'andromeda' => [
-            'galaxy' => 'Andromeda',
-            'spaceship' => 'patrol'
-        ],
-        'pegasus' => [
-            'galaxy' => 'Pegasus',
-            'spaceship' => 'patrol'
-        ],
-        'spiral' => [
-            'galaxy' => 'Spiral',
-            'spaceship' => 'patrol'
-        ],
-        'shiar' => [
-            'galaxy' => 'Shiar',
-            'spaceship' => 'battle'
-        ],
-        'xeno' => [
-            'galaxy' => 'Xeno',
-            'spaceship' => 'battle'
-        ],
-        'isop' => [
-            'galaxy' => 'Isop',
-            'spaceship' => 'executor'
-        ]
-    ];
 
     public static function stats(array $data): string
     {
         return 'Spaceship stats:' . PHP_EOL
             . 'strength: ' . ($data['strength'] ?: 5) . PHP_EOL
             . 'armor: ' . ($data['armor'] ?: 5) . PHP_EOL
-            . 'luck: ' . ($data['luck'] ?: 5)  . PHP_EOL
-            . 'health: ' . ($data['health'] ?: 100)   . PHP_EOL
+            . 'luck: ' . ($data['luck'] ?: 5) . PHP_EOL
+            . 'health: ' . ($data['health'] ?: 100) . PHP_EOL
             . 'hold: ' . ($data['hold'] ?: '[ _ _ _ ]') . PHP_EOL;
     }
 
     public static function galaxy(string $galaxyLabel, ISpaceship $spaceship): string
     {
-        $galaxy = self::GALAXIES[$galaxyLabel];
+        $galaxy = Config::GALAXIES[$galaxyLabel];
 
         return "Galaxy: {$galaxy['galaxy']}." . PHP_EOL
             . "You see a {$spaceship->getName()}: " . PHP_EOL
@@ -77,7 +36,8 @@ final class Messages
         int $shipHealth,
         int $shipDamage,
         int $playerHealth
-    ): string {
+    ): string
+    {
         return "{$spaceshipName} has damaged on: {$playerDamage} points." . PHP_EOL
             . "health: {$shipHealth}" . PHP_EOL
             . "{$spaceshipName} damaged your spaceship on: {$shipDamage} points." . PHP_EOL
@@ -132,7 +92,7 @@ final class Messages
 
     public static function whereAmI(string $galaxyLabel): string
     {
-        $galaxy = self::GALAXIES[$galaxyLabel];
+        $galaxy = Config::GALAXIES[$galaxyLabel];
 
         return "Galaxy: {$galaxy['galaxy']}" . PHP_EOL;
     }
@@ -158,6 +118,17 @@ final class Messages
             . "You have to start from Home Galaxy." . PHP_EOL;
     }
 
+    public static function restart(): string
+    {
+        return 'You restarted the game!' . PHP_EOL
+            . 'You were teleported to Home Galaxy!' . PHP_EOL;
+    }
+
+    public static function exit(): string
+    {
+        return "🚀 Thank you for playing :) 🔥" . PHP_EOL;
+    }
+
     public static function errors(string $key, string $params = ''): string
     {
         return [
@@ -165,7 +136,19 @@ final class Messages
             'home_galaxy_grab' => 'Hah? You don\'t want to grab any staff at Home Galaxy. Believe me.',
             'home_galaxy_attack' => 'Calm down! No enemy spaceships detected. No one to fight with.',
             'grab_undestroyed_spaceship' => 'LoL. Unable to grab goods. Try to destroy enemy spaceship first.',
-            'unknown_command' => "Command '$params' not found"
+            'unknown_command' => "Command '$params' not found",
+            'null_galaxy' => "Enter the name of the galaxy!",
+            'max_health' => "You already have maximum level of health!",
+            'max_strength' => "You can't buy strength, your strength is maximum level!",
+            'max_armor' => "You can't buy armor, your armor is is maximum level!",
+            'no_reactors' => "You don't have reactors to apply!",
+            'already_killed' => 'You have already defeated the warrior!',
+            'already_grabbed' => 'You have already grabbed the items!',
+            'null_buy' => "I don't know what you want to buy!",
+            'buy_only' => "You can buy items only at home!",
+            'no_crystals' => "You don't have enough crystals to buy items!",
+            'full_hold' => "Your hold doesn't have enough place for new items!"
+
         ][$key];
     }
 }

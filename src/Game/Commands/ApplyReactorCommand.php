@@ -10,25 +10,26 @@ final class ApplyReactorCommand extends AbstractCommand
 {
     public function execute()
     {
-        if(is_int($this->isPlayerHavingReactor())) {
+        $reactorIndex = $this->getReactorIndexIfExists();
+        if (is_int($reactorIndex)) {
             if ($this->player->getHealth() === Stats::MAX_HEALTH) {
-                $this->writer->writeln('You already have maximum level of health!');
+                $this->writer->writeln(Messages::errors('max_health'));
             } else {
-                $this->player->restoreHealth($this->isPlayerHavingReactor());
+                $this->player->restoreHealth($reactorIndex);
                 $this->writer->writeln(Messages::applyReactor($this->player->getHealth()));
             }
-
         } else {
-            $this->writer->writeln('You don\'t have reactors to apply!');
+            $this->writer->writeln(Messages::errors('no_reactors'));
         }
     }
 
-    private function isPlayerHavingReactor(): ?int
+    private function getReactorIndexIfExists(): ?int
     {
         $index = null;
-        for($i = 0; $i < 3; $i++) {
-            if($this->player->getHold()[$i] === Hold::REACTOR) {
+        for ($i = 0; $i < Hold::SIZE; $i++) {
+            if ($this->player->getHold()[$i] === Hold::REACTOR) {
                 $index = $i;
+                break;
             }
         }
         return $index;

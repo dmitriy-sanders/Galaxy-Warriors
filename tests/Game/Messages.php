@@ -18,7 +18,7 @@ final class Messages
             'name' => 'Battle Spaceship',
             'stats' => [
                 'strength' => 8,
-                'armor' => 7,
+                'armor' => 8,
                 'luck' => 6,
                 'health' => 100,
             ]

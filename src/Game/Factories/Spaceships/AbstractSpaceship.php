@@ -19,7 +19,7 @@ abstract class AbstractSpaceship implements ISpaceship
         return "Spaceship stats:" . PHP_EOL
             . "strength: {$this->strength}" . PHP_EOL
             . "armor: {$this->armor}" . PHP_EOL
-            . "luck:  {$this->luck}" . PHP_EOL
+            . "luck: {$this->luck}" . PHP_EOL
             . "health: {$this->health}" . PHP_EOL
             . "hold: {$this->holdPresenter()}" . PHP_EOL;
     }
@@ -43,7 +43,12 @@ abstract class AbstractSpaceship implements ISpaceship
     {
         return $this->health;
     }
-    
+
+    public function getHold(): array
+    {
+        return $this->hold;
+    }
+
     public function holdPresenter(): string
     {
         if (empty($this->hold)) {
@@ -52,7 +57,7 @@ abstract class AbstractSpaceship implements ISpaceship
             $holdResult = '[ ';
             foreach ($this->hold as $item) {
                 if ($item) {
-                   $holdResult .= $item . ' ';
+                    $holdResult .= $item . ' ';
                 } else {
                     $holdResult .= '_ ';
                 }
@@ -81,11 +86,6 @@ abstract class AbstractSpaceship implements ISpaceship
     public function makeDamage(int $damage)
     {
         $this->health -= $damage;
-    }
-
-    public function getHold()
-    {
-        return $this->hold;
     }
 
     public function isBoss()

@@ -9,4 +9,15 @@ interface ISpaceship
     public function stats(): string;
 
     public function getName(): string;
+
+    public function getStrength(): int;
+
+    public function getArmor(): int;
+
+    public function getLuck(): int;
+
+    public function getHealth(): int;
+
+    public function getHold(): array;
+
 }

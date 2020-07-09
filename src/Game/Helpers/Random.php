@@ -13,6 +13,6 @@ class Random implements IRandom
 
     public function getRandomInt(int $min, int $max)
     {
-        return floor($this->get() * ($max - $min + 1)) + $min;
+        return floor($this->get() * ($max - $min)) + $min;
     }
 }

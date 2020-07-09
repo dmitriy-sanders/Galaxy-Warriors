@@ -7,7 +7,11 @@ use BinaryStudioAcademy\Game\Contracts\Io\Writer;
 
 interface IGalaxy
 {
-    public function __construct(string $params, Writer $writer, Random $random);
+    public function __construct(
+        string $params,
+        Writer $writer,
+        Random $random
+    );
 
     public function main();
 }

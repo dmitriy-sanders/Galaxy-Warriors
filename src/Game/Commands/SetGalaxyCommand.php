@@ -25,7 +25,7 @@ final class SetGalaxyCommand extends AbstractCommand
                     $galaxyObj = new $galaxyClass($params, $this->writer, $this->random);
                     if (method_exists($galaxyObj, 'main')) {
                         $this->player->setGalaxy($params);
-                        static::$grabbed = false;
+                        self::$grabbed = false;
                         $galaxyObj->main();
                     }
                 }
@@ -33,14 +33,14 @@ final class SetGalaxyCommand extends AbstractCommand
                 $this->writer->writeln(Messages::errors('undefined_galaxy'));
             }
         } else {
-            $this->writer->writeln('Enter the name of the galaxy!');
+            $this->writer->writeln(Messages::errors('null_galaxy'));
         }
     }
 
     private function getGalaxyClassname(string $params)
     {
-        $namespace ='BinaryStudioAcademy\\Game\\Galaxies\\';
-        return  $namespace .
+        $namespace = 'BinaryStudioAcademy\\Game\\Galaxies\\';
+        return $namespace .
             implode('', array_map('ucfirst', explode(' ', $params)))
             . 'Galaxy';
     }
