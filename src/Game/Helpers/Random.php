@@ -11,8 +11,8 @@ class Random implements IRandom
         return mt_rand() / mt_getrandmax();
     }
 
-    public static function getRandomInt(int $min, int $max)
+    public function getRandomInt(int $min, int $max)
     {
-        return mt_rand($min, $max);
+        return floor($this->get() * ($max - $min + 1)) + $min;
     }
 }

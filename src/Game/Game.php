@@ -24,7 +24,7 @@ class Game
         $writer->writeln("Enter 'help' - to see all available commands!");
         $input = trim($reader->read());
 
-        while ($input !== 'exit') {
+        while (true) {
             $this->checkAndExecute($input);
 
             $input = trim($reader->read());
@@ -33,7 +33,8 @@ class Game
 
     public function run(Reader $reader, Writer $writer)
     {
-        $writer->writeln('This method runs program step by step.');
+        $input = trim($reader->read());
+        $this->checkAndExecute($input);
     }
 
     private function checkAndExecute(string $input)
@@ -42,10 +43,5 @@ class Game
         $params = explode(' ', $input)[1] ?? null;
 
         $this->validator->validate($command, $params, $this->random);
-    }
-
-    public function state()
-    {
-
     }
 }

@@ -73,25 +73,9 @@ abstract class AbstractSpaceship implements ISpaceship
         return $counter;
     }
 
-    public function updateHold(array $newHold)
-    {
-        $myItems = array_filter($this->hold);
-        $newItems = array_filter($newHold);
-
-        $this->hold = array_merge($myItems, $newItems);
-        while(count($this->hold) !== 3) {
-            $this->hold[] = '';
-        }
-    }
-
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getCurrentGalaxy(): string
-    {
-        return $this->currentGalaxy;
     }
 
     public function makeDamage(int $damage)
@@ -102,5 +86,10 @@ abstract class AbstractSpaceship implements ISpaceship
     public function getHold()
     {
         return $this->hold;
+    }
+
+    public function isBoss()
+    {
+        return $this->name === 'Executor';
     }
 }

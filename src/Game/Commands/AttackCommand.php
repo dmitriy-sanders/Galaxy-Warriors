@@ -7,48 +7,57 @@ use BinaryStudioAcademy\Game\Helpers\Messages;
 
 final class AttackCommand extends AbstractCommand
 {
-    public function execute() {
-
+    public function execute()
+    {
         $math = new Math();
-
         $currentGalaxy = $this->player->getCurrentGalaxy();
-        if ($currentGalaxy !== 'home') {
-            $playerLuck = $math->luck($this->random, $this->player->getLuck());
-            $playerDamage = $playerLuck ?
-                $math->damage($this->player->getStrength(), $this->player->getArmor()) : 0;
+        $classCurrGalaxy = 'BinaryStudioAcademy\\Game\\Galaxies\\'
+            . ucfirst($currentGalaxy) . 'Galaxy';
 
-
-            $classCurrGalaxy = 'BinaryStudioAcademy\\Game\\Galaxies\\'
-                . ucfirst($currentGalaxy) . 'Galaxy';
+        if (!$this->isHome()) {
 
             $warrior = $classCurrGalaxy::getWarrior();
+            $playerLuck = $math->luck($this->random, $this->player->getLuck());
+            $playerDamage = $playerLuck ?
+                $math->damage($this->player->getStrength(), $warrior->getArmor()) : 0;
+
             $warriorLuck = $math->luck($this->random, $warrior->getLuck());
             $warriorDamage = $warriorLuck ?
-                $math->damage($warrior->getStrength(), $warrior->getArmor()) : 0;
+                $math->damage($warrior->getStrength(), $this->player->getArmor()) : 0;
 
             $warrior->makeDamage($playerDamage);
-            if ($this->player->getHealth() <= 0) {
-                $this->writer->writeln('You died:(');
-                $this->player->restart();
-            }
 
-            $this->player->makeDamage($warriorDamage);
-            if ($warrior->getHealth() <= 0) {
+            if ($warrior->getHealth() <= 0 && !self::$grabbed && !self::$diedWarrior) {
                 self::$diedWarrior = $warrior;
-                $this->writer->writeln(Messages::destroyed($warrior->getName()));
+                if ($warrior->isBoss()) {
+                    $this->writer->writeln(Messages::finalWin());
+                    exit();
+                } else {
+                    $this->writer->writeln(Messages::destroyed($warrior->getName()));
+                }
+            } else if ($warrior->getHealth() > 0) {
+                $this->player->makeDamage($warriorDamage);
+                if ($this->player->getHealth() <= 0){
+                    $this->writer->writeln('You died:(');
+                    $this->writer->writeln('Game Restarted!');
+                    $this->player->restart();
+                } else {
+                    $this->writer->writeln(Messages::attack(
+                        $warrior->getName(),
+                        $playerDamage,
+                        $warrior->getHealth(),
+                        $warriorDamage,
+                        $this->player->getHealth()
+                    ));
+                }
+            } else if(self::$diedWarrior || !self::$diedWarrior && self::$grabbed) {
+                $this->writer->writeln("You have already defeated the warrior!");
+            } else if (self::$grabbed){
+                $this->writer->writeln("You have already grabbed the items!");
             }
 
-            if ($this->player->getHealth() > 0 && $warrior->getHealth() > 0) {
-                $this->writer->writeln(Messages::attack(
-                    $warrior->getName(),
-                    $playerDamage,
-                    $warrior->getHealth(),
-                    $warriorDamage,
-                    $this->player->getHealth()
-                ));
-            }
         } else {
-            $this->writer->writeln("You can't attack at home!");
+            $this->writer->writeln(Messages::errors('home_galaxy_attack'));
         }
     }
 }

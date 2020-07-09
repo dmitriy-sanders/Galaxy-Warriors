@@ -67,7 +67,7 @@ final class Messages
             . "You see a {$spaceship->getName()}: " . PHP_EOL
             . "strength: {$spaceship->getStrength()}" . PHP_EOL
             . "armor: {$spaceship->getArmor()}" . PHP_EOL
-            . "luck:  {$spaceship->getLuck()}" . PHP_EOL
+            . "luck: {$spaceship->getLuck()}" . PHP_EOL
             . "health: {$spaceship->getHealth()}" . PHP_EOL;
     }
 
@@ -104,9 +104,14 @@ final class Messages
         return 'Galaxy: Home Galaxy.' . PHP_EOL;
     }
 
-    public static function buySkill(string $skill, int $nextValue): string
+    public static function buyStrength(int $nextValue): string
     {
-        return "You\'ve got upgraded skill: {$skill}. The level is {$nextValue} now." . PHP_EOL;
+        return "You\'ve got upgraded skill: strength. The level is {$nextValue} now." . PHP_EOL;
+    }
+
+    public static function buyArmor(int $nextValue): string
+    {
+        return "You\'ve got upgraded skill: armor. The level is {$nextValue} now." . PHP_EOL;
     }
 
     public static function buyReactor(int $nextValue): string

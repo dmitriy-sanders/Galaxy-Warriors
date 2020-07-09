@@ -7,6 +7,8 @@ use BinaryStudioAcademy\Game\Helpers\Stats;
 
 final class ExecutorSpaceship extends AbstractSpaceship
 {
+    protected string $name = 'Executor';
+
     public function __construct()
     {
         $this->strength = Stats::MAX_STRENGTH;

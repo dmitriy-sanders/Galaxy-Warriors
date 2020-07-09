@@ -13,11 +13,17 @@ abstract class AbstractCommand
     protected Writer $writer;
     protected PlayerSpaceship $player;
     protected static ?AbstractSpaceship $diedWarrior = null;
+    protected static bool $grabbed = false;
 
-    public function __construct(Random $random, Writer $writer)
+    public function __construct($random, Writer $writer)
     {
         $this->random = $random;
         $this->writer = $writer;
         $this->player = PlayerSpaceship::getInstance();
+    }
+
+    protected function isHome()
+    {
+        return $this->player->getCurrentGalaxy() === 'home';
     }
 }

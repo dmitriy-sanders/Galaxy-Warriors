@@ -2,12 +2,11 @@
 
 namespace BinaryStudioAcademy\Game\Commands;
 
-use BinaryStudioAcademy\Game\Factories\Spaceships\PlayerSpaceship;
 use BinaryStudioAcademy\Game\Helpers\Messages;
 
 final class SetGalaxyCommand extends AbstractCommand
 {
-    private static array $params = [
+    private array $params = [
         'home',
         'andromeda',
         'spiral',
@@ -17,15 +16,16 @@ final class SetGalaxyCommand extends AbstractCommand
         'isop',
     ];
 
-    public function execute(string $command, string $params)
+    public function execute(?string $params)
     {
         if ($params) {
-            if (in_array($params, self::$params)) {
+            if (in_array($params, $this->params)) {
                 $galaxyClass = $this->getGalaxyClassname($params);
                 if (class_exists($galaxyClass)) {
-                    $galaxyObj = new $galaxyClass($params, $this->writer);
+                    $galaxyObj = new $galaxyClass($params, $this->writer, $this->random);
                     if (method_exists($galaxyObj, 'main')) {
-                        PlayerSpaceship::getInstance()->setGalaxy($params);
+                        $this->player->setGalaxy($params);
+                        static::$grabbed = false;
                         $galaxyObj->main();
                     }
                 }

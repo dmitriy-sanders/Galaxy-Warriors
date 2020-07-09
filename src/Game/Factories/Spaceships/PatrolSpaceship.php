@@ -10,11 +10,11 @@ final class PatrolSpaceship extends AbstractSpaceship
 {
     protected string $name = 'Patrol Spaceship';
 
-    public function __construct()
+    public function __construct(Random $random)
     {
-        $this->strength = Random::getRandomInt(3, 4);
-        $this->armor = Random::getRandomInt(2, 4);
-        $this->luck = Random::getRandomInt(1, 2);
+        $this->strength = $random->getRandomInt(3, 4);
+        $this->armor = $random->getRandomInt(2, 4);
+        $this->luck = $random->getRandomInt(1, 2);
         $this->health = Stats::MAX_HEALTH;
         $this->hold = [Hold::REACTOR, '', ''];
     }
