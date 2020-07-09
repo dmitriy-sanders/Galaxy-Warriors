@@ -11,7 +11,7 @@ final class PlayerSpaceship extends AbstractSpaceship
     protected int $armor = 10;
     protected int $luck = 10;
     protected int $health = Stats::MAX_HEALTH;
-    protected array $hold = ['', '', ''];
+    protected array $hold = [Hold::CRYSTAL, Hold::CRYSTAL, Hold::CRYSTAL];
 
     protected string $name = 'Player Spaceship';
     protected string $currentGalaxy = 'home';

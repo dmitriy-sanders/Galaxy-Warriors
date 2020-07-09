@@ -6,6 +6,7 @@ use BinaryStudioAcademy\Game\Contracts\Galaxy\IGalaxy;
 use BinaryStudioAcademy\Game\Contracts\Io\Writer;
 use BinaryStudioAcademy\Game\Contracts\Spaceship\ISpaceship;
 use BinaryStudioAcademy\Game\Factories\SpaceshipFactory;
+use BinaryStudioAcademy\Game\Helpers\Config;
 use BinaryStudioAcademy\Game\Helpers\Messages;
 use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
@@ -22,8 +23,8 @@ abstract class AbstractGalaxy implements IGalaxy
     public function __construct(string $params, Writer $writer, Random $random)
     {
         $this->galaxyLabel = $params;
-        $this->galaxy = Messages::GALAXIES[$params]['galaxy'];
-        $this->spaceship = Messages::GALAXIES[$params]['spaceship'];
+        $this->galaxy = Config::GALAXIES[$params]['galaxy'];
+        $this->spaceship = Config::GALAXIES[$params]['spaceship'];
         $this->writer = $writer;
         $this->random = $random;
         $this->spaceShipFactory = new SpaceshipFactory();
