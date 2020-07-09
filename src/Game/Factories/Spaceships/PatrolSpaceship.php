@@ -12,9 +12,9 @@ final class PatrolSpaceship extends AbstractSpaceship
 
     public function __construct(Random $random)
     {
-        $this->strength = $random->getRandomInt(3, 4);
-        $this->armor = $random->getRandomInt(2, 4);
-        $this->luck = $random->getRandomInt(1, 2);
+        $this->strength = floor($random->get() * (4 - 3 + 1)) + 3;
+        $this->armor = floor($random->get() * (4 - 2 + 1)) + 2;
+        $this->luck = floor($random->get() * (2 - 1 + 1)) + 1;
         $this->health = Stats::MAX_HEALTH;
         $this->hold = [Hold::REACTOR, '', ''];
     }

@@ -7,11 +7,11 @@ use BinaryStudioAcademy\Game\Helpers\Stats;
 
 final class PlayerSpaceship extends AbstractSpaceship
 {
-    protected int $strength = 10;
-    protected int $armor = 10;
-    protected int $luck = 10;
+    protected int $strength = 5;
+    protected int $armor = 5;
+    protected int $luck = 5;
     protected int $health = Stats::MAX_HEALTH;
-    protected array $hold = [Hold::CRYSTAL, Hold::CRYSTAL, Hold::CRYSTAL];
+    protected array $hold = ['', '', ''];
 
     protected string $name = 'Player Spaceship';
     protected string $currentGalaxy = 'home';
